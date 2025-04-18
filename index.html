@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --warning-color: #f72585;
+            --border-color: #e2e8f0;
+            --text-color: #2d3748;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+        }
+        
+        .message-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .counter-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .char-count {
+            color: var(--text-color);
+        }
+        
+        .char-limit {
+            font-weight: 500;
+        }
+        
+        .warning {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+        
+        .error-message {
+            color: var(--warning-color);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h1>Leave Your Message</h1>
+        <div class="form-group">
+            <label for="message">Your Message:</label>
+            <textarea id="message" placeholder="Type your message here..."></textarea>
+            <div class="counter-container">
+                <span id="charCount" class="char-count">0</span>
+                <span id="charLimit" class="char-limit">/ 200 characters max</span>
+            </div>
+            <div id="errorMessage" class="error-message">
+                You've reached the maximum character limit!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const messageInput = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        const charLimit = document.getElementById('charLimit');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Set maximum character limit
+        const MAX_CHARS = 200;
+        
+        // Update character counter
+        function updateCounter() {
+            const currentLength = messageInput.value.length;
+            const remaining = MAX_CHARS - currentLength;
+            
+            // Update counter display
+            charCount.textContent = currentLength;
+            
+            // Change color when approaching limit
+            if (remaining < 0) {
+                charCount.classList.add('warning');
+                errorMessage.style.display = 'block';
+                
+                // Trim the text to max length
+                messageInput.value = messageInput.value.substring(0, MAX_CHARS);
+                charCount.textContent = MAX_CHARS;
+            } else {
+                charCount.classList.remove('warning');
+                errorMessage.style.display = 'none';
+                
+                // Change color when close to limit
+                if (remaining < 20) {
+                    charCount.classList.add('warning');
+                }
+            }
+        }
+        
+        // Initialize on page load
+        updateCounter();
+        
+        // Add event listener for input changes
+        messageInput.addEventListener('input', updateCounter);
+    </script>
+</body>
+</html>
