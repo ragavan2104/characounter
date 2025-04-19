@@ -3,8 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Counter</title>
+    <title>Multi-Page Demo</title>
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --warning-color: #f72585;
+            --error-color: #f72585;
+            --success-color: #4cc9f0;
+            --border-color: #e2e8f0;
+            --text-color: #2d3748;
+            --light-gray: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+        }
+        
+        .nav-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-button:hover {
+            background-color: #3a56d4;
+            transform: translateY(-1px);
+        }
+        
+        .page-container {
+            display: none;
+            width: 100%;
+        }
+        
+        .page-container.active {
+            display: block;
+        }
+        
+        /* Character Counter Styles */
+        .message-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Registration Form Styles */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+        
+        /* Common heading styles */
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        :root {
+            --primary-color: #4361ee;
+            --error-color: #f72585;
+            --success-color: #4cc9f0;
+            --border-color: #e2e8f0;
+            --text-color: #2d3748;
+            --light-gray: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            transition: all 0.3s ease;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background-color: var(--light-gray);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        input.error-border {
+            border-color: var(--error-color);
+        }
+        
+        .error {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: #3a56d4;
+            transform: translateY(-1px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            color: var(--success-color);
+            margin-top: 1rem;
+            font-weight: 500;
+        }
         :root {
             --primary-color: #4361ee;
             --warning-color: #f72585;
@@ -92,66 +282,183 @@
             font-size: 0.9rem;
             display: none;
         }
+        
+        /* Add all other styles from both pages here */
+        /* ... (copy all other CSS rules from both files) ... */
     </style>
 </head>
 <body>
-    <div class="message-container">
-        <h1>Leave Your Message</h1>
-        <div class="form-group">
-            <label for="message">Your Message:</label>
-            <textarea id="message" placeholder="Type your message here..."></textarea>
-            <div class="counter-container">
-                <span id="charCount" class="char-count">0</span>
-                <span id="charLimit" class="char-limit">/ 200 characters max</span>
+    <button id="toggleButton" class="nav-button">Switch to Registration Form</button>
+    
+    <!-- Character Counter Page -->
+    <div id="counterPage" class="page-container active">
+        <div class="message-container">
+            <h1>Leave Your Message</h1>
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" placeholder="Type your message here..."></textarea>
+                <div class="counter-container">
+                    <span id="charCount" class="char-count">0</span>
+                    <span id="charLimit" class="char-limit">/ 200 characters max</span>
+                </div>
+                <div id="errorMessage" class="error-message">
+                    You've reached the maximum character limit!
+                </div>
             </div>
-            <div id="errorMessage" class="error-message">
-                You've reached the maximum character limit!
-            </div>
+        </div>
+    </div>
+    
+    <!-- Registration Form Page -->
+    <div id="registrationPage" class="page-container">
+        <div class="form-container">
+            <h1>Create Your Account</h1>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Ragavan">
+                    <div id="nameError" class="error">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com">
+                    <div id="emailError" class="error">Please enter a valid email</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="At least 6 characters">
+                    <div id="passwordError" class="error">Password must be 6+ characters</div>
+                </div>
+                
+                <button type="submit" id="submitBtn" disabled>Sign Up</button>
+                <div id="successMessage" class="success-message">Registration successful!</div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Get elements
+        // Page toggle functionality
+        const toggleButton = document.getElementById('toggleButton');
+        const counterPage = document.getElementById('counterPage');
+        const registrationPage = document.getElementById('registrationPage');
+        
+        toggleButton.addEventListener('click', function() {
+            if (counterPage.classList.contains('active')) {
+                counterPage.classList.remove('active');
+                registrationPage.classList.add('active');
+                toggleButton.textContent = 'Switch to Character Counter';
+            } else {
+                registrationPage.classList.remove('active');
+                counterPage.classList.add('active');
+                toggleButton.textContent = 'Switch to Registration Form';
+            }
+        });
+        
+        // Character Counter Script
         const messageInput = document.getElementById('message');
         const charCount = document.getElementById('charCount');
         const charLimit = document.getElementById('charLimit');
         const errorMessage = document.getElementById('errorMessage');
         
-        // Set maximum character limit
         const MAX_CHARS = 200;
         
-        // Update character counter
         function updateCounter() {
             const currentLength = messageInput.value.length;
             const remaining = MAX_CHARS - currentLength;
             
-            // Update counter display
             charCount.textContent = currentLength;
             
-            // Change color when approaching limit
             if (remaining < 0) {
                 charCount.classList.add('warning');
                 errorMessage.style.display = 'block';
-                
-                // Trim the text to max length
                 messageInput.value = messageInput.value.substring(0, MAX_CHARS);
                 charCount.textContent = MAX_CHARS;
             } else {
                 charCount.classList.remove('warning');
                 errorMessage.style.display = 'none';
                 
-                // Change color when close to limit
                 if (remaining < 20) {
                     charCount.classList.add('warning');
                 }
             }
         }
         
-        // Initialize on page load
         updateCounter();
-        
-        // Add event listener for input changes
         messageInput.addEventListener('input', updateCounter);
+        
+        // Registration Form Script
+        const form = document.getElementById('registrationForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        
+        function validateName() {
+            const isValid = nameInput.value.trim() !== '';
+            if (!isValid) {
+                nameInput.classList.add('error-border');
+                nameError.style.display = 'block';
+            } else {
+                nameInput.classList.remove('error-border');
+                nameError.style.display = 'none';
+            }
+            return isValid;
+        }
+        
+        function validateEmail() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(emailInput.value);
+            if (!isValid) {
+                emailInput.classList.add('error-border');
+                emailError.style.display = 'block';
+            } else {
+                emailInput.classList.remove('error-border');
+                emailError.style.display = 'none';
+            }
+            return isValid;
+        }
+        
+        function validatePassword() {
+            const isValid = passwordInput.value.length >= 6;
+            if (!isValid) {
+                passwordInput.classList.add('error-border');
+                passwordError.style.display = 'block';
+            } else {
+                passwordInput.classList.remove('error-border');
+                passwordError.style.display = 'none';
+            }
+            return isValid;
+        }
+        
+        function validateForm() {
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            
+            submitBtn.disabled = !(isNameValid && isEmailValid && isPasswordValid);
+        }
+        
+        nameInput.addEventListener('input', validateForm);
+        emailInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (validateName() && validateEmail() && validatePassword()) {
+                successMessage.style.display = 'block';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    successMessage.textContent = "Redirecting...";
+                }, 1500);
+            }
+        });
     </script>
 </body>
 </html>
